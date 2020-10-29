@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
-using System;
 
 namespace Practice
 {
@@ -67,7 +66,6 @@ namespace Practice
             options = optionsBuilder
                 .UseSqlServer(connectionString)
                 .Options;
-            Console.WriteLine("test");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

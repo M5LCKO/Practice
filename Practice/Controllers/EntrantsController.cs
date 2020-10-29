@@ -23,7 +23,7 @@ namespace Practice.Controllers
         {
             _logger = logger;
 
-            
+
         }
 
         [HttpGet]
@@ -34,6 +34,43 @@ namespace Practice.Controllers
             {
                 return db.Entrants.ToArray();
             }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Update(Entrants entrant, int Id)
+        {
+            using (ApplicationContext db = new ApplicationContext(Startup.options))
+            {
+               db.Entrants.Update(entrant);
+               db.SaveChanges();
+            }
+            return StatusCode(200);
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(Entrants entrant)
+        {
+            using (ApplicationContext db = new ApplicationContext(Startup.options))
+            {
+                db.Entrants.Add(entrant);
+                db.SaveChanges();
+            }
+
+            return StatusCode(200);
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            Entrants b = new Entrants { Id = id };
+            using (ApplicationContext db = new ApplicationContext(Startup.options))
+            {
+                db.Entry(b).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+
+            return StatusCode(200);
         }
 
     }
